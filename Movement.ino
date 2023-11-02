@@ -20,6 +20,13 @@ void setup()
 	motor4.run(RELEASE);
 }
 
+void stop()
+{
+  motor1.run(RELEASE);//Stops all motors
+  motor2.run(RELEASE);
+  motor3.run(RELEASE);
+  motor4.run(RELEASE);
+}
 void moveForward(int time)//All of the motors move forward at a set speed
 {
   motor1.run(BACKWARD);//Conventional forward and backward are flipped
@@ -66,12 +73,17 @@ void turnRight(int time)
 //turn on front motors in opposite directions
   motor1.run(BACKWARD);
   motor2.run(FORWARD);
+  motor3.run(FORWARD);
+  motor4.run(BACKWARD);
  
 
   // Accelerate from zero to maximum speed
   for (int i = 0; i < 255; i++) {
     motor1.setSpeed(i);
     motor2.setSpeed(i);
+    motor3.setSpeed(i);
+    motor4.setSpeed(i);
+    
   
     delay(10);
   }
@@ -87,12 +99,16 @@ void turnLeft(int time)
 //turn on front motors in opposite directions
   motor1.run(FORWARD);
   motor2.run(BACKWARD);
+  motor3.run(BACKWARD);
+  motor4.run(FORWARD);
  
 
   // Accelerate from zero to maximum speed
   for (int i = 0; i < 255; i++) {
     motor1.setSpeed(i);
     motor2.setSpeed(i);
+    motor3.setSpeed(i);
+    motor4.setSpeed(i);
   
     delay(10);
   }
@@ -105,12 +121,7 @@ void turnLeft(int time)
 
 void loop()
 {
-  moveForward(1000);// SWITCH FORWARD/BACK FUNCTION TO BE LIKE RIGHT
-  delay(3000);
-  turnRight(1000); //detremine time needed to turn 90 degrees
-  turnLeft(1000);
-  delay(1000);
-  moveBackward(100);
-  delay(3000);
+turnLeft(750);
+stop();
   
 }
