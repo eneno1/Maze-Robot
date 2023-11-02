@@ -1,0 +1,9 @@
+while(frontSensor!=x)
+{
+  moveForward(100);
+}
+
+if(frontSensor=x)
+{
+  turnRight(2000);//time should be the amount of time needed to turn 90 degrees
+}
