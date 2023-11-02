@@ -1,9 +1,9 @@
-while(frontSensor!=x)
+while(frontSensor!=5)// 3 for sides
 {
   moveForward(100);
 }
 
-if(frontSensor=x)
+if(frontSensor<=5)
 {
   turnRight(2000);//time should be the amount of time needed to turn 90 degrees
 }
