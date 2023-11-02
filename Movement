@@ -1,0 +1,125 @@
+// Motor A
+int motor1A = 2;
+int motor1B = 3;
+
+// Motor B
+int motor2A = 4;
+int motor2B = 5;
+
+// Motor C
+int motor3A = 6;
+int motor3B = 7;
+
+// Motor D
+int motor4A = 8;
+int motor4B = 9;
+
+void setup() {
+  // Set the motor control pins as outputs
+  pinMode(motor1A, OUTPUT);
+  pinMode(motor1B, OUTPUT);
+  pinMode(motor2A, OUTPUT);
+  pinMode(motor2B, OUTPUT);
+  pinMode(motor3A, OUTPUT);
+  pinMode(motor3B, OUTPUT);
+  pinMode(motor4A, OUTPUT);
+  pinMode(motor4B, OUTPUT);
+}
+
+void loop() {
+  // Forward
+  moveForward();
+  delay(2000);
+
+  // Stop
+  stopMotors();
+  delay(1000);
+
+  // Turn left
+  turnLeft();
+  delay(2000);
+
+  // Stop
+  stopMotors();
+  delay(1000);
+
+  // Turn right
+  turnRight();
+  delay(2000);
+
+  // Stop
+  stopMotors();
+  delay(1000);
+}
+
+void moveForward() {
+  // Motor A
+  digitalWrite(motor1A, HIGH);
+  digitalWrite(motor1B, LOW);
+
+  // Motor B
+  digitalWrite(motor2A, HIGH);
+  digitalWrite(motor2B, LOW);
+
+  // Motor C
+  digitalWrite(motor3A, HIGH);
+  digitalWrite(motor3B, LOW);
+
+  // Motor D
+  digitalWrite(motor4A, HIGH);
+  digitalWrite(motor4B, LOW);
+}
+
+void turnLeft() {
+  // Motor A
+  digitalWrite(motor1A, LOW);
+  digitalWrite(motor1B, HIGH);
+
+  // Motor B
+  digitalWrite(motor2A, HIGH);
+  digitalWrite(motor2B, LOW);
+
+  // Motor C
+  digitalWrite(motor3A, HIGH);
+  digitalWrite(motor3B, LOW);
+
+  // Motor D
+  digitalWrite(motor4A, LOW);
+  digitalWrite(motor4B, HIGH);
+}
+
+void turnRight() {
+  // Motor A
+  digitalWrite(motor1A, HIGH);
+  digitalWrite(motor1B, LOW);
+
+  // Motor B
+  digitalWrite(motor2A, LOW);
+  digitalWrite(motor2B, HIGH);
+
+  // Motor C
+  digitalWrite(motor3A, LOW);
+  digitalWrite(motor3B, HIGH);
+
+  // Motor D
+  digitalWrite(motor4A, HIGH);
+  digitalWrite(motor4B, LOW);
+}
+
+void stopMotors() {
+  // Motor A
+  digitalWrite(motor1A, LOW);
+  digitalWrite(motor1B, LOW);
+
+  // Motor B
+  digitalWrite(motor2A, LOW);
+  digitalWrite(motor2B, LOW);
+
+  // Motor C
+  digitalWrite(motor3A, LOW);
+  digitalWrite(motor3B, LOW);
+
+  // Motor D
+  digitalWrite(motor4A, LOW);
+  digitalWrite(motor4B, LOW);
+}
