@@ -5,6 +5,15 @@ AF_DCMotor motor2(2);
 AF_DCMotor motor3(3);
 AF_DCMotor motor4(4);
 
+int trigger_front = A0;
+int echo_front = A1;
+
+int trigger_left = A2;
+int echo_left = A3;
+
+int trigger_right = A4;
+int echo_right = A5;
+
 
 void setup() 
 {
