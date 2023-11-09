@@ -5,14 +5,14 @@ AF_DCMotor motor2(2);
 AF_DCMotor motor3(3);
 AF_DCMotor motor4(4);
 
-int trigger_front = A0;
-int echo_front = A1;
+int trigger_front = A2;
+int echo_front = A3;
 
-int trigger_left = A2;
-int echo_left = A3;
+int trigger_left = A4;
+int echo_left = A5;
 
-int trigger_right = A4;
-int echo_right = A5;
+int trigger_right = A0;
+int echo_right = A1;
 
 
 void setup() 
@@ -38,6 +38,81 @@ void setup()
   
   analogWrite(motor_enableA, 80);
   analogWrite(motor_enableB, 88);
+}
+
+void loop(){
+
+Serial.begin(9600);
+long duration_front, distance_front, duration_left, distance_left, duration_right, distance_right;
+    
+//Calculating distance
+  
+digitalWrite(trigger_front, LOW);
+delayMicroseconds(2);
+digitalWrite(trigger_front, HIGH);
+delayMicroseconds(10);
+digitalWrite(trigger_front, LOW);
+duration_front = pulseIn(echo_front, HIGH);
+distance_front= duration_front*0.034/2;
+
+digitalWrite(trigger_left, LOW);
+delayMicroseconds(2);
+digitalWrite(trigger_left, HIGH);
+delayMicroseconds(10);
+digitalWrite(trigger_left, LOW);
+duration_left = pulseIn(echo_left, HIGH);
+distance_left= duration_left*0.034/2;
+
+digitalWrite(trigger_right, LOW);
+delayMicroseconds(2);
+digitalWrite(trigger_right, HIGH);
+delayMicroseconds(10);
+digitalWrite(trigger_right, LOW);
+duration_right = pulseIn(echo_right, HIGH);
+distance_right= duration_right*0.034/2;
+
+Serial.print("front = ");
+Serial.println(distance_front);
+Serial.print("Left = ");
+Serial.println(distance_left);
+Serial.print("Right = ");
+Serial.println(distance_right);  
+delay(50);
+
+if (distance_front > 20){
+moveForward();	
+  }
+    
+if(distance_left > 10 && distance_left<20){	    
+moveForward();
+  }
+	
+if(distance_left >=20){
+turnLeft();	
+delay(30);
+moveForward();	
+  }
+	
+if(distance_left < 10 && distance_left > 0){
+turnFight();
+delay(30);
+moveForward();
+  }
+  
+if(distance_front <= 20 && distance_right > 20){
+stop();
+delay(1000);
+turnRight();
+delay(400); 
+  }
+
+if(distance_front <= 20 && distance_right < 20){
+stop();
+delay(1000);
+turnRight();
+delay(800);
+  }
+  
 }
 
 void stop()
@@ -67,26 +142,6 @@ void moveForward(int time)//All of the motors move forward at a set speed
   motor4.setSpeed(0);
 }
 
-void moveBackward(int time)//All of the motors move forward at a set speed
-{
-  motor1.run(FORWARD);//Conventional forward and backward are flipped
-  motor2.run(FORWARD);
-  motor3.run(FORWARD);
-  motor4.run(FORWARD);
-
-  motor1.setSpeed(200); //each motor's speed is kept constant for a given time
-  motor2.setSpeed(200);  
-  motor3.setSpeed(200); 
-  motor4.setSpeed(200);
-
-  delay(time);
-
-  motor1.setSpeed(0); //each motor's speed is set to zero
-  motor2.setSpeed(0);  
-  motor3.setSpeed(0); 
-  motor4.setSpeed(0);
-}
-
 void turnRight(int time)
 {
 
@@ -97,7 +152,7 @@ void turnRight(int time)
   motor4.run(BACKWARD);
  
 
-  // Accelerate from zero to maximum speed
+// Accelerate from zero to maximum speed
   for (int i = 0; i < 255; i++) {
     motor1.setSpeed(i);
     motor2.setSpeed(i);
@@ -138,10 +193,3 @@ void turnLeft(int time)
 
 }
 
-
-void loop()
-{
-turnLeft(750);
-stop();
-  
-}
