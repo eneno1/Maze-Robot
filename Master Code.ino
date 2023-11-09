@@ -17,15 +17,15 @@ int echo_right = A5;
 
 void setup() 
 {
-	//Set initial speed of the motor & stop
-	motor1.setSpeed(200); //motor on at a set speed
-	motor1.run(RELEASE);// motor off
+//Set initial speed of the motor & stop
+  motor1.setSpeed(200); //motor on at a set speed
+  motor1.run(RELEASE);// motor off
   motor2.setSpeed(200);
-	motor2.run(RELEASE);
+  motor2.run(RELEASE);
   motor3.setSpeed(200);
-	motor3.run(RELEASE);
+  motor3.run(RELEASE);
   motor4.setSpeed(200);
-	motor4.run(RELEASE);
+  motor4.run(RELEASE);
 
   pinMode(trigger_front,OUTPUT);
   pinMode(echo_front,INPUT);
