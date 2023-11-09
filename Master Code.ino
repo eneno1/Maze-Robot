@@ -37,7 +37,78 @@ void setup()
   pinMode(echo_right,INPUT);
 }
 
+void loop(){
 
+Serial.begin(9600);
+long duration_front, distance_front, duration_left, distance_left, duration_right, distance_right;
+    
+//Calculating distance
+  
+digitalWrite(trigger_front, LOW);
+delayMicroseconds(2);
+digitalWrite(trigger_front, HIGH);
+delayMicroseconds(10);
+digitalWrite(trigger_front, LOW);
+duration_front = pulseIn(echo_front, HIGH);
+distance_front= duration_front*0.034/2;
+
+digitalWrite(trigger_left, LOW);
+delayMicroseconds(2);
+digitalWrite(trigger_left, HIGH);
+delayMicroseconds(10);
+digitalWrite(trigger_left, LOW);
+duration_left = pulseIn(echo_left, HIGH);
+distance_left= duration_left*0.034/2;
+
+digitalWrite(trigger_right, LOW);
+delayMicroseconds(2);
+digitalWrite(trigger_right, HIGH);
+delayMicroseconds(10);
+digitalWrite(trigger_right, LOW);
+duration_right = pulseIn(echo_right, HIGH);
+distance_right= duration_right*0.034/2;
+
+Serial.print("front = ");
+Serial.println(distance_front);
+Serial.print("Left = ");
+Serial.println(distance_left);
+Serial.print("Right = ");
+Serial.println(distance_right);  
+delay(50);
+
+if (distance_front > 20){
+moveForward(1000);	
+  }
+    
+if(distance_left > 10 && distance_left<20){	    
+moveForward(500);
+  }
+	
+if(distance_left >= 20){
+moveForward(1000);	
+  }
+	
+if(distance_left < 10 && distance_left > 0){
+turnRight(750);
+delay(30);
+moveForward(100);
+  }
+  
+if(distance_front <= 20 && distance_right > 20){
+stop();
+delay(1000);
+turnRight(750);
+delay(400); 
+  }
+
+if(distance_front <= 20 && distance_right < 20){
+stop();
+delay(1000);
+turnLeft(750);
+delay(800);
+  }
+  
+}
 
 void stop()
 {
@@ -52,26 +123,6 @@ void moveForward(int time)//All of the motors move forward at a set speed
   motor2.run(BACKWARD);
   motor3.run(BACKWARD);
   motor4.run(BACKWARD);
-
-  motor1.setSpeed(200); //each motor's speed is kept constant for a given time
-  motor2.setSpeed(200);  
-  motor3.setSpeed(200); 
-  motor4.setSpeed(200);
-
-  delay(time);
-
-  motor1.setSpeed(0); //each motor's speed is set to zero
-  motor2.setSpeed(0);  
-  motor3.setSpeed(0); 
-  motor4.setSpeed(0);
-}
-
-void moveBackward(int time)//All of the motors move forward at a set speed
-{
-  motor1.run(FORWARD);//Conventional forward and backward are flipped
-  motor2.run(FORWARD);
-  motor3.run(FORWARD);
-  motor4.run(FORWARD);
 
   motor1.setSpeed(200); //each motor's speed is kept constant for a given time
   motor2.setSpeed(200);  
@@ -136,68 +187,3 @@ void turnLeft(int time)
   delay(time);
 
 }
-
-void loop(){
-
-Serial.begin(9600);
-long duration_front, distance_front, duration_left, distance_left, duration_right, distance_right;
-    
-//Calculating distance
-  
-digitalWrite(trigger_front, LOW);
-delayMicroseconds(2);
-digitalWrite(trigger_front, HIGH);
-delayMicroseconds(10);
-digitalWrite(trigger_front, LOW);
-duration_front = pulseIn(echo_front, HIGH);
-distance_front= duration_front*0.034/2;
-
-digitalWrite(trigger_left, LOW);
-delayMicroseconds(2);
-digitalWrite(trigger_left, HIGH);
-delayMicroseconds(10);
-digitalWrite(trigger_left, LOW);
-duration_left = pulseIn(echo_left, HIGH);
-distance_left= duration_left*0.034/2;
-
-digitalWrite(trigger_right, LOW);
-delayMicroseconds(2);
-digitalWrite(trigger_right, HIGH);
-delayMicroseconds(10);
-digitalWrite(trigger_right, LOW);
-duration_right = pulseIn(echo_right, HIGH);
-distance_right= duration_right*0.034/2;
-
-Serial.print("front = ");
-Serial.println(distance_front);
-Serial.print("Left = ");
-Serial.println(distance_left);
-Serial.print("Right = ");
-Serial.println(distance_right);  
-delay(50);
-
-while (distance_front > 20){
-  moveForward(1000);	
-}
-stop();
-while (distance_front > 10 && distance_front<20){	    
-  moveForward(500);
-}
-stop();
-if(distance_front<10){
-
-  if(distance_left < 10 && distance_left > 0){
-  stop();
-  turnRight(750);
-  }
-  
-  else if(distance_right < 10 && distance_right > 0){
-  stop();
-  turnRight(750);
-  }
-  else
-  stop();
-  moveBackward(1000);
-}
-}
-  
