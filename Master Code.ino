@@ -26,6 +26,18 @@ void setup()
 	motor3.run(RELEASE);
   motor4.setSpeed(200);
 	motor4.run(RELEASE);
+
+  pinMode(trigger_front,OUTPUT);
+  pinMode(echo_front,INPUT);
+
+  pinMode(trigger_left,OUTPUT);
+  pinMode(echo_left,INPUT);
+
+  pinMode(trigger_right,OUTPUT);
+  pinMode(echo_right,INPUT);
+  
+  analogWrite(motor_enableA, 80);
+  analogWrite(motor_enableB, 88);
 }
 
 void stop()
