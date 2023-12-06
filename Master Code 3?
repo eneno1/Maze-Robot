@@ -42,7 +42,7 @@ void setup()
 void loop(){
 
 Serial.begin(9600);
-long duration_front, distance_front, duration_left, distance_left// no right sensor   duration_right, distance_right;
+long duration_front, distance_front, duration_left, distance_left ; // no right sensor   duration_right, distance_right
    
 //Calculating distance
  
@@ -168,6 +168,7 @@ void turnLeft(int time)
     motor4.setSpeed(i);
  
     delay(10);
+}
   }
 
 
